@@ -56,10 +56,10 @@ local function grab()
     for k, v in pairs(codes) do
         if msg:find(k) and table.pack(msg:gsub(k, ""))[2] == 2 then
             local p1, p2 = msg:find(k)
-            msg = msg:cut(p1, p2)
+            msg = msg:cut(p1, p2, true)
             msg = msg:insert(p1, v)
             p1, p2 = msg:find(k)
-            msg = msg:cut(p1, p2)
+            msg = msg:cut(p1, p2, true)
             msg = msg:insert(p1, code .. "r")
         end
     end
