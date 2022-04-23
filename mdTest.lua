@@ -57,7 +57,7 @@ local function grab()
         if msg:find(k) and table.pack(msg:gsub(k, ""))[2] == 2 then
             local p1, p2 = msg:find(k)
             msg = msg:cut(p1, p2, true)
-            msg = msg:insert(p1, v)
+            msg = msg:insert(p1 - 1, v)
             p1, p2 = msg:find(k)
             msg = msg:cut(p1, p2, true)
             msg = msg:insert(p1, code .. "r")
