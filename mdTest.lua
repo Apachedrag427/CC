@@ -51,6 +51,9 @@ local function grab()
             local p1, p2 = msg:find(k)
             msg = msg:cut(p1, p2)
             msg = msg:insert(p1, v)
+            p1, p2 = msg:find(k)
+            msg = msg:cut(p1, p2)
+            msg = msg:insert(p1, code .. "r")
         end
     end
     chat.say(msg)
