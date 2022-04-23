@@ -1,21 +1,3 @@
-local handle = http.get("https://raw.githubusercontent.com/Apachedrag427/CC/main/mdTest.lua")
-if handle then
-    local current = fs.open(shell.getRunningProgram(), "w")
-    if current and current.write then
-        current.close()
-	    current = fs.open(shell.getRunningProgram(), "r")
-	    local contents = current.readAll()
-	    current.close()
-	    local updated = handle.readAll() ~= contents
-	    if updated then
-	    	local f = fs.open(shell.getRunningProgram(), "w")
-	    	f.write(handle.readAll())
-            f.close()
-	    end
-	    handle.close()
-    end
-end
-
 local code = string.char(167)
 local codes = {
     {
