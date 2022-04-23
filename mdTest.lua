@@ -1,6 +1,7 @@
 local handle = http.get("https://raw.githubusercontent.com/Apachedrag427/CC/main/mdTest.lua")
 if handle then
-    if shell.getRunningProgram() then
+    local current = fs.open(shell.getRunningProgram(), "r")
+    if current then
 	    local current = fs.open(shell.getRunningProgram(), "r")
 	    local contents = current.readAll()
 	    current.close()
