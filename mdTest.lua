@@ -41,6 +41,7 @@ function string.insert(str, place, value, replace)
 end
 
 local chat = peripheral.wrap("top")
+chat.capture("")
 local pull = os.pullEvent
 os.pullEvent = os.pullEventRaw
 local function grab()
