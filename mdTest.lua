@@ -69,3 +69,4 @@ while true do
     if grab() == "terminated" then break end
 end
 os.pullEvent = pull
+chat.clearCaptures()
