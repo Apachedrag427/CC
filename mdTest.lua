@@ -18,10 +18,21 @@ end
 
 local code = string.char(167)
 local codes = {
-    ["**"] = code .. "l",
-    ["*"] = code .. "o",
-    ["_"] = code .. "n",
-    ["~~"] = code .. "m",
+    {
+        ["***"] = code .. "o" .. code .. "l",
+    },
+    {
+        ["**"] = code .. "l",
+    },
+    {
+        ["*"] = code .. "o",
+    },
+    {
+        ["_"] = code .. "n",
+    },
+    {
+        ["~~"] = code .. "m",
+    },
 }
 function string.cut(str, place1, place2, inclusive)
     local firstpart
@@ -53,14 +64,16 @@ os.pullEvent = os.pullEventRaw
 local function grab()
     local event, msg, _, plr, uuid = os.pullEvent()
     if event == "terminate" then return "terminated" elseif event ~= "chat_capture" then return end
-    for k, v in pairs(codes) do
-        if msg:find(k) and table.pack(msg:gsub(k, ""))[2] == 2 then
-            local p1, p2 = msg:find(k)
-            msg = msg:cut(p1, p2, true)
-            msg = msg:insert(p1 - 1, v)
-            p1, p2 = msg:find(k)
-            msg = msg:cut(p1, p2, true)
-            msg = msg:insert(p1, code .. "r")
+    for k, v in ipairs(codes) do
+        for i, val in pairs(v) do
+            if msg:find(i) and table.pack(msg:gsub(i, ""))[2] == 2 then
+                local p1, p2 = msg:find(i)
+                msg = msg:cut(p1, p2, true)
+                msg = msg:insert(p1 - 1, val)
+                p1, p2 = msg:find(i)
+                msg = msg:cut(p1, p2, true)
+                msg = msg:insert(p1, code .. "r")
+            end
         end
     end
     chat.say(msg)
