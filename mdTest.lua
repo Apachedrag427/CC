@@ -7,9 +7,11 @@ if handle then
 	if updated then
 		local f = fs.open(shell.getRunningProgram(), "w")
 		f.write(handle.readAll())
+        f.close()
 	end
 	handle.close()
 end
+
 local code = string.char(167)
 local codes = {
     ["**"] = code .. "l",
