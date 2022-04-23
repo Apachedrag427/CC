@@ -13,7 +13,7 @@ end
 local code = string.char(167)
 local chat = peripheral.wrap("left")
 chat.capture("")
-pull = os.pullEvent
+local pull = os.pullEvent
 os.pullEvent = os.pullEventRaw
 local function grab()
 	local event, msg, _, plr, uuid = os.pullEvent()
