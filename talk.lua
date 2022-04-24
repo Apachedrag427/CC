@@ -1,3 +1,8 @@
+local args = {...}
+local returnWhenUpdated = false
+if args[1] == "update" then
+    returnWhenUpdated = true
+end
 if not http then
 	error("Please enable http in config.", 0)
 end
@@ -30,6 +35,7 @@ if not fs.exists("say.lua") then
         file.close()
     end
 end
+if returnWhenUpdated then return end
 local say = require("say")
 local modules = peripheral.find("manipulator")
 if not modules then
