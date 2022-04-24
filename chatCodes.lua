@@ -1,3 +1,25 @@
+if not http then
+	error("Please enable http in config.", 0)
+end
+local function get(url)
+	local response = http.get(url)
+	if not response then
+		error("Could not get " .. url, 0)
+	end
+	local data = response.readAll()
+	response.close()
+	return data
+end
+local new = get("https://github.com/Apachedrag427/CC/blob/main/chatCodes.lua")
+local old = fs.open(shell.getRunningProgram(), "r").readAll()
+if new ~= old then
+    local file = fs.open(shell.getRunningProgram(), "w")
+    if file then
+        file.write(new)
+        file.close()
+    end
+    print("Updated")
+end
 local code = string.char(167)
 local chat = peripheral.wrap("left")
 chat.capture("")

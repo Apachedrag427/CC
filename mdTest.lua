@@ -1,3 +1,25 @@
+if not http then
+	error("Please enable http in config.", 0)
+end
+local function get(url)
+	local response = http.get(url)
+	if not response then
+		error("Could not get " .. url, 0)
+	end
+	local data = response.readAll()
+	response.close()
+	return data
+end
+local new = get("https://github.com/Apachedrag427/CC/blob/main/mdTest.lua")
+local old = fs.open(shell.getRunningProgram(), "r").readAll()
+if new ~= old then
+    local file = fs.open(shell.getRunningProgram(), "w")
+    if file then
+        file.write(new)
+        file.close()
+    end
+    print("Updated")
+end
 local code = string.char(167)
 local codes = {
     {
@@ -16,6 +38,7 @@ local codes = {
         ["~~"] = code .. "m",
     },
 }
+local reset = code .. "r"
 function string.cut(str, place1, place2, inclusive)
     local firstpart
     local secondpart
@@ -54,7 +77,7 @@ local function grab()
                 msg = msg:insert(p1 - 1, val)
                 p1, p2 = msg:find(i)
                 msg = msg:cut(p1, p2, true)
-                msg = msg:insert(p1, code .. "r")
+                msg = msg:insert(p1, reset)
             end
         end
     end
