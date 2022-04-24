@@ -22,7 +22,10 @@ if new ~= old then
         os.reboot()
     end
 end
-local modules = peripheral.find("plethora:manipulator")
+local modules = peripheral.find("manipulator")
+if not modules then
+    error("Please put a manipulator with a creative chat recorder around this computer.", 0)
+end
 if not modules.hasModule("plethora:chat_creative") then
     error("Please put a creative chat recorder around this computer.", 0)
 end
