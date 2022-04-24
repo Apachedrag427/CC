@@ -57,8 +57,8 @@ end
 local publicJoinMsg = true
 local function joinMsg(str)
     if publicJoinMsg then
-        chat.say(string.char(167) .. "e" .. str)
         print("Join message sent.")
+        chat.say(string.char(167) .. "e" .. str)
     else
         term.setTextColor(colors.yellow)
         term.clearLine()
