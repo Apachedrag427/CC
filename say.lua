@@ -32,23 +32,7 @@ end
 local chat = modules
 local code = string.char(167)
 local prefix = code .. "a" .. code .. "o[Apache] " .. code .. "r"
-if {...} then
-    local args = {...}
-    local result = ""
-    if #args > 1 then
-        for i,v in ipairs(args) do
-            result = result .. v .. (i < #args and " " or "")
-        end
-    elseif #args == 1 then
-        result = args[1]
-    else
-        error("Please provide something to say", 0)
-    end
-    result = result:gsub("&&", code)
-    chat.say(prefix .. result)
-else
-    return function(str)
-        str = str:gsub("&&", code)
-        chat.say(prefix .. str)
-    end
+return function(str)
+    str = str:gsub("&&", code)
+    chat.say(prefix .. str)
 end
