@@ -31,7 +31,11 @@ if not fs.exists("say.lua") then
     end
 end
 local say = require("say")
-local chat = peripheral.find("plethora:chat_creative")
+local modules = peripheral.find("plethora:manipulator")
+if not modules.hasModule("plethora:chat_creative") then
+    error("Please put a creative chat recorder around this computer.", 0)
+end
+local chat = modules
 if not chat then error("Please put a creative chat recorder around this computer.", 0) end
 local function getMsg()
     while true do
