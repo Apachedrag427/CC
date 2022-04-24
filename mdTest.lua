@@ -17,8 +17,10 @@ if new ~= old then
     if file then
         file.write(new)
         file.close()
+        print("Updated")
+        sleep(1)
+        os.reboot()
     end
-    print("Updated")
 end
 local code = string.char(167)
 local codes = {
