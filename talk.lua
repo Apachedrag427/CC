@@ -22,7 +22,16 @@ if new ~= old then
         os.reboot()
     end
 end
-
+if not fs.exists("say.lua") then
+    local stuff = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/say.lua")
+    local file = fs.open("say.lua", "w")
+    if file then
+        file.write(stuff)
+        file.close()
+    end
+end
+local chat = peripheral.find("plethora:chat_creative")
+if not chat then error("Please put a creative chat recorder around this computer.", 0) end
 local function getMsg()
     while true do
         local _, plr, msg = os.pullEvent("chat_message")
@@ -31,36 +40,30 @@ local function getMsg()
         term.write("<You> ")
     end
 end
-local chat = peripheral.wrap("left")
+local publicJoinMsg = true
 local function joinMsg(str)
-    chat.say(string.char(167) .. "e" .. str)
+    if publicJoinMsg then
+        chat.say(string.char(167) .. "e" .. str)
+    else
+        term.setTextColor(colors.yellow)
+        term.clearLine()
+        print(str)
+        term.setTextColor(colors.white)
+    end
 end
-local sendMsgOnStart = false
 
 local pull = os.pullEvent
 os.pullEvent = function(Filter)
     local stuff = table.pack(os.pullEventRaw(Filter))
     if stuff[1] == "terminate" then
-        if sendMsgOnStart then
-            joinMsg("Apache has left the chat")
-        else
-            term.setTextColor(colors.yellow)
-            print("Apache has left the chat")
-            term.setTextColor(colors.white)
-        end
+        joinMsg("Apache has left the chat")
         error("", 0)
     else
         return table.unpack(stuff)
     end
 end
 local written = false
-if sendMsgOnStart then
-    joinMsg("Apache has joined the chat")
-else
-    term.setTextColor(colors.yellow)
-    print("Apache has joined the chat")
-    term.setTextColor(colors.white)
-end
+joinMsg("Apache has joined the chat")
 local function sendStuff()
     term.write("<You> ")
     while true do
