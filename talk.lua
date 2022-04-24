@@ -30,6 +30,7 @@ if not fs.exists("say.lua") then
         file.close()
     end
 end
+local say = require("say")
 local chat = peripheral.find("plethora:chat_creative")
 if not chat then error("Please put a creative chat recorder around this computer.", 0) end
 local function getMsg()
@@ -69,7 +70,7 @@ local function sendStuff()
     while true do
         if not written then written = true else term.write("      ") end
         local input = read()
-        shell.run("say " .. input)
+        say(input)
     end
 end
 
