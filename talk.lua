@@ -37,6 +37,21 @@ if not fs.exists("say.lua") then
     end
 end
 if returnWhenUpdated then return end
+local nick
+if not fs.exists(".nick") then
+    local file = fs.open(".nick", "w")
+    if file then
+        file.write("[ChatBox] ")
+        file.close()
+    end
+    error("Please go edit the .nick file to customize your chatbox's nickname.  This is used in the chat join/leave msg", 0)
+else
+    local file = fs.open(".nick", "r")
+    if file then
+        nick = file.readLine()
+        file.close()
+    end
+end
 local say = require("say")
 local modules = peripheral.find("manipulator")
 if not modules then
@@ -73,7 +88,7 @@ os.pullEvent = function(Filter)
     if stuff[1] == "terminate" then
         if not termed then
             termed = true
-            joinMsg("Apache has left the chat")
+            joinMsg(nick .. " has left the chat")
             error("", 0)
         end
     else
@@ -81,7 +96,7 @@ os.pullEvent = function(Filter)
     end
 end
 local written = false
-joinMsg("Apache has joined the chat")
+joinMsg(nick .. " has joined the chat")
 local function sendStuff()
     term.write("<You> ")
     while true do
