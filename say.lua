@@ -1,3 +1,8 @@
+local args = {...}
+local returnWhenUpdated = false
+if args[1] == "update" then
+    returnWhenUpdated = true
+end
 if not http then
 	error("Please enable http in config.", 0)
 end
@@ -22,6 +27,7 @@ if new ~= old then
         os.reboot()
     end
 end
+if returnWhenUpdated then return end
 local modules = peripheral.find("manipulator")
 if not modules then
     error("Please put a manipulator with a creative chat recorder around this computer.", 0)
