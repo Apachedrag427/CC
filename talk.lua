@@ -3,6 +3,7 @@ local returnWhenUpdated = false
 if args[1] == "update" then
     returnWhenUpdated = true
 end
+local termed = false
 if not http then
 	error("Please enable http in config.", 0)
 end
@@ -57,7 +58,6 @@ end
 local publicJoinMsg = true
 local function joinMsg(str)
     if publicJoinMsg then
-        print("Join message sent.")
         chat.say(string.char(167) .. "e" .. str)
     else
         term.setTextColor(colors.yellow)
@@ -71,8 +71,11 @@ local pull = os.pullEvent
 os.pullEvent = function(Filter)
     local stuff = table.pack(os.pullEventRaw(Filter))
     if stuff[1] == "terminate" then
-        joinMsg("Apache has left the chat")
-        error("", 0)
+        if not termed then
+            termed = true
+            joinMsg("Apache has left the chat")
+            error("", 0)
+        end
     else
         return table.unpack(stuff)
     end
