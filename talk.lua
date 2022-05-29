@@ -18,7 +18,7 @@ end
 local new = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/talk.lua")
 local old = fs.open(shell.getRunningProgram(), "r").readAll()
 if new ~= old then
-	print("Update detected, press 'y' to update, press 'n' to refuse")
+	print("Update detected in main program, press 'y' to update, press 'n' to refuse")
 	local _, key = os.pullEvent("key")
 	if key == keys.y then
 		local file = fs.open(shell.getRunningProgram(), "w")
@@ -40,6 +40,25 @@ if not fs.exists("say.lua") then
         file.write(stuff)
         file.close()
     end
+else
+	local new = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/say.lua")
+	local old = fs.open("/say.lua", "r").readAll()
+	if new ~= old then
+		print("Update detected in api, press 'y' to update, press 'n' to refuse")
+		local _, key = os.pullEvent("key")
+		if key == keys.y then
+			local file = fs.open("/say.lua", "w")
+	    	if file then
+	        	file.write(new)
+	        	file.close()
+	        	print("Updated")
+	        	sleep(1)
+	        	os.reboot()
+	    	end
+		else
+			print("Not updating")
+		end
+	end
 end
 if returnWhenUpdated then return end
 local nick
