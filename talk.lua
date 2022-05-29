@@ -3,7 +3,6 @@ local returnWhenUpdated = false
 if args[1] == "update" then
     returnWhenUpdated = true
 end
-local termed = false
 if not http then
 	error("Please enable http in config.", 0)
 end
@@ -19,14 +18,20 @@ end
 local new = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/talk.lua")
 local old = fs.open(shell.getRunningProgram(), "r").readAll()
 if new ~= old then
-    local file = fs.open(shell.getRunningProgram(), "w")
-    if file then
-        file.write(new)
-        file.close()
-        print("Updated")
-        sleep(1)
-        os.reboot()
-    end
+	print("Update detected, press 'y' to update, press 'n' to refuse")
+	local _, key = os.pullEvent("key")
+	if key == keys.y then
+		local file = fs.open(shell.getRunningProgram(), "w")
+    	if file then
+        	file.write(new)
+        	file.close()
+        	print("Updated")
+        	sleep(1)
+        	os.reboot()
+    	end
+	else
+		print("Not updating")
+	end
 end
 if not fs.exists("say.lua") then
     local stuff = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/say.lua")
