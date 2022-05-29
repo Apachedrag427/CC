@@ -46,7 +46,7 @@ local nick
 if not fs.exists(".nick") then
     local file = fs.open(".nick", "w")
     if file then
-        file.write("[ChatBox] ")
+        file.write("ChatBox")
         file.close()
     end
     error("Please go edit the .nick file to customize your chatbox's nickname.  This is used in the chat join/leave msg", 0)
