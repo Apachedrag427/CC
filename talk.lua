@@ -113,6 +113,8 @@ os.pullEvent = function(Filter)
         if not termed then
             termed = true
             joinMsg(nick .. " has left the chat")
+			term.clear()
+			term.setCursorPos(1,1)
             error("", 0)
         end
     else
