@@ -15,7 +15,7 @@ local function get(url)
 	response.close()
 	return data
 end
-local new = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/talk.lua")
+local new = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/say.lua")
 local old = fs.open(shell.getRunningProgram(), "r").readAll()
 if new ~= old then
     local file = fs.open(shell.getRunningProgram(), "w")
