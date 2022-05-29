@@ -16,12 +16,12 @@ local function get(url)
 	return data
 end
 local new = get("https://raw.githubusercontent.com/Apachedrag427/CC/main/say.lua")
-local old = fs.open(shell.getRunningProgram(), "r").readAll()
+local old = fs.open("/say.lua", "r").readAll()
 if new ~= old then
 	print("Update detected, press 'y' to update, press 'n' to refuse")
 	local _, key = os.pullEvent("key")
 	if key == keys.y then
-		local file = fs.open(shell.getRunningProgram(), "w")
+		local file = fs.open("/say.lua", "w")
     	if file then
         	file.write(new)
         	file.close()
